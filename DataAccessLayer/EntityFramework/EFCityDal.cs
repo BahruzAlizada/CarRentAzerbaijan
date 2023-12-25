@@ -2,7 +2,6 @@
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
-using EntityLayer.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
 

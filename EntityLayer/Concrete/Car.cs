@@ -8,7 +8,6 @@ namespace EntityLayer.Concrete
         public int Id { get; set; }
         public int UserId { get; set; }
         public int BanId { get; set; }
-        public int MarkaId { get; set; }
         public int ModelId { get; set; }
         public int CityId { get; set; }
         public int YearId { get; set; }
@@ -30,7 +29,6 @@ namespace EntityLayer.Concrete
         public List<CarImage> CarImages { get;set; }
         public AppUser User { get; set;}
         public Ban Ban { get; set; }
-        public Marka Marka { get; set; }
         public Model Model { get; set; }
         public City City { get; set; }
         public Year Year { get; set; }
