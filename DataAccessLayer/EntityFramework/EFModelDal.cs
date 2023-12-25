@@ -8,9 +8,17 @@ namespace DataAccessLayer.EntityFramework
 {
     public class EFModelDal : EfRepositoryBase<Model, Context>, IModelDal
     {
-        public Task Activity(int id)
+        public async Task Activity(int id)
         {
-            throw new NotImplementedException();
+            using var context = new Context();
+
+            Model model = await context.Models.FirstOrDefaultAsync(x => x.Id == id);
+            if (model.IsDeactive)
+                model.IsDeactive = false;
+            else
+                model.IsDeactive= true;
+
+            await context.SaveChangesAsync();
         }
 
         public async Task<List<Model>> GetActiveMarkas()
