@@ -1,0 +1,53 @@
+﻿@model List<Ban>
+
+<hr class="my-5" />
+
+<!-- Bordered Table -->
+<div class="card">
+    <div class="card-header" style="display:flex;justify-content:space-between">
+        <h2>Ban növləri</h2>
+        <div>
+            <a asp-action="Create" class="btn btn-primary text-white" style="margin-right:10px">Yarat</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ban</th>
+                        <th>Status</th>
+                        <th style="text-align:right">Aksiyonlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Ban item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>
+                                @if (item.IsDeactive)
+                                {
+                                    <span style="padding:6px 4px; background-color:red; color:white;">Dekativ</span>
+                                }
+                                else
+                                {
+                                    <span style="padding:6px 4px; background-color:green; color:white;">Aktiv</span>
+                                }
+                            </td>
+                            <td>
+                                <div style="display:flex;justify-content:flex-end">
+                                    <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning text-white" style="margin-right:10px">Yenilə</a>
+                                    <a asp-action="Activity" asp-route-id="@item.Id" class="btn btn-danger text-white" style="margin-right:10px">status</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--/ Bordered Table -->
+
+<hr class="my-5" />

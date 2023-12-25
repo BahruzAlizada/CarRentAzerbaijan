@@ -55,14 +55,19 @@ namespace BusinessLayer.Concrete
             return await markaDal.GetActiveMarkNames();
         }
 
-        public Task<List<Model>> GetAllMarkasAsync()
+        public async Task<List<Model>> GetAllMarkasAsync(int take, int page)
         {
-            throw new NotImplementedException();
+            return await markaDal.GetAllMarkas(take, page);
         }
 
-        public async Task<Model> GetMarkaById(int? id)
+        public async Task<Model> GetMarkaByIdAsync(int? id)
         {
             return await markaDal.GetAsync(x => x.Id == id);
+        }
+
+        public async Task<double> MarkaPageCountAsync(double take)
+        {
+            return await markaDal.MarkaPageCount(take);
         }
 
         public async Task UpdateAsync(Model marka)

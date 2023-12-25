@@ -17,7 +17,7 @@ namespace DataAccessLayer.EntityFramework
         {
             using var context = new Context();
 
-            List<Model> markas = await context.Models.Where(x => !x.IsDeactive).ToListAsync();
+            List<Model> markas = await context.Models.Where(x => !x.IsDeactive && x.IsMain).ToListAsync();
             return markas;
         }
 
@@ -25,9 +25,26 @@ namespace DataAccessLayer.EntityFramework
         {
             using var context = new Context();
 
-            List<Model> markas = await context.Models.Where(x => !x.IsDeactive).Select(x=>new Model
+            List<Model> markas = await context.Models.Where(x => !x.IsDeactive && x.IsMain).Select(x=>new Model
             { Id=x.Id, Name=x.Name}).ToListAsync();
             return markas;
+        }
+
+        public async Task<List<Model>> GetAllMarkas(int take, int page)
+        {
+            using var context = new Context();
+
+            List<Model> markas = await context.Models.Where(x=>x.IsMain).OrderByDescending(x=>x.Id)
+                .Skip((page-1) * take).Take(take).ToListAsync();
+            return markas;
+        }
+
+        public async Task<double> MarkaPageCount(double take)
+        {
+            using var context = new Context();
+
+            double pageCount = Math.Ceiling(await context.Models.Where(x => x.IsMain).CountAsync() / take);
+            return pageCount;
         }
     }
 }
