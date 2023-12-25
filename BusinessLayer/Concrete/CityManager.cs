@@ -13,12 +13,10 @@ namespace BusinessLayer.Concrete
     public class CityManager : ICityService
     {
         private readonly ICityDal cityDal;
-        private readonly IMapper mapper;
         private readonly IMemoryCache memoryCache;
-        public CityManager(ICityDal cityDal,IMapper mapper,IMemoryCache memoryCache)
+        public CityManager(ICityDal cityDal,IMemoryCache memoryCache)
         {
             this.cityDal=cityDal;
-            this.mapper=mapper;
             this.memoryCache=memoryCache;
         }
 
@@ -28,9 +26,8 @@ namespace BusinessLayer.Concrete
             await cityDal.Activity(id);
         }
 
-        public void Add(CityDto cityDto)
+        public void Add(City city)
         {
-            var city = mapper.Map<City>(cityDto);
             cityDal.Add(city);
         }
 
@@ -44,9 +41,8 @@ namespace BusinessLayer.Concrete
             return cityDal.Get(x => x.Id == id);
         }
 
-        public void Update(CityDto cityDto)
+        public void Update(City city)
         {
-            var city = mapper.Map<City>(cityDto);
             cityDal.Update(city);
         }
 
@@ -81,8 +77,8 @@ namespace BusinessLayer.Concrete
 
                 memoryCache.Set(cacheKey, cities, new MemoryCacheEntryOptions
                 {
-                    SlidingExpiration = TimeSpan.FromMinutes(5),
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15),
+                    SlidingExpiration = TimeSpan.FromMinutes(4),
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(12),
                     Priority = CacheItemPriority.High
                 });
             }

@@ -16,8 +16,8 @@ namespace BusinessLayer.Abstract
         Task<City> GetActiveCity(int? id);
         List<City> GetCities();
         City GetCity(int? id);
-        void Add(CityDto cityDto);
-        void Update(CityDto cityDto);
+        void Add(City city);
+        void Update(City city);
         Task Activity(int id);
     }
 }

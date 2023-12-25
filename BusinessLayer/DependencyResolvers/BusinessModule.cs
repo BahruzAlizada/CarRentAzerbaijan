@@ -5,7 +5,6 @@ using DataAccessLayer.EntityFramework;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
-
 namespace BusinessLayer.DependencyResolvers
 {
     public static class BusinessModule
@@ -16,6 +15,17 @@ namespace BusinessLayer.DependencyResolvers
             services.AddScoped<ICityService, CityManager>();
             services.AddScoped<ICityDal, EFCityDal>();
 
+            services.AddScoped<IFuelService, FuelManager>();
+            services.AddScoped<IFuelDal, EFFuelDal>();
+
+            services.AddScoped<IBanService, BanManager>();
+            services.AddScoped<IBanDal,EFBanDal>();
+
+            services.AddScoped<IGearBoxService, GearBoxManager>();
+            services.AddScoped<IGearBoxDal, EFGearBoxDal>();
+
+            services.AddScoped<IYearService, YearManager>();
+            services.AddScoped<IYearDal, EFYearDal>();
 
             //services.AddScoped<ICompanyService, CompanyManager>();
             //services.AddScoped<ICompanyDal, EFCompanyDal>();

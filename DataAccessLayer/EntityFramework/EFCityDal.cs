@@ -14,26 +14,12 @@ public class EFCityDal : EfRepositoryBase<City, Context>, ICityDal
     {
         using var context = new Context();
 
-        var result = await context.Cities.FirstOrDefaultAsync(x => x.Id == id);
-        List<Job> jobs = await context.Jobs.Where(x=>x.CityId==id).ToListAsync();
-
-        if (result.IsDeactive)
-        {
-            result.IsDeactive = false;
-            foreach (var item in jobs)
-            {
-                item.IsDeactive = false;
-            }
-        }
+        City city = await context.Cities.FirstOrDefaultAsync(x => x.Id == id);
+        if (city.IsDeactive)
+            city.IsDeactive = false;
         else
-        {
-            result.IsDeactive = true;
-            foreach (var item in jobs)
-            {
-                item.IsDeactive = true;
-            }
-        }
-            
+            city.IsDeactive = true;
+
         await context.SaveChangesAsync();
     }
 
