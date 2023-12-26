@@ -9,9 +9,9 @@ namespace CarRentAzerbaijan.Areas.Admin.Controllers
     [Area("Admin")]
     public class MarkaController : Controller
     {
-        private readonly IModelService modelService;
+        private readonly IMarkaService modelService;
         private readonly IWebHostEnvironment env;
-        public MarkaController(IModelService modelService,IWebHostEnvironment env)
+        public MarkaController(IMarkaService modelService,IWebHostEnvironment env)
         {
             this.modelService = modelService;
             this.env = env;

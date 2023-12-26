@@ -1,4 +1,5 @@
-﻿using Core.DataAccess.EntityFramework;
+﻿using Azure;
+using Core.DataAccess.EntityFramework;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
@@ -16,43 +17,43 @@ namespace DataAccessLayer.EntityFramework
             if (model.IsDeactive)
                 model.IsDeactive = false;
             else
-                model.IsDeactive= true;
+                model.IsDeactive = true;
 
             await context.SaveChangesAsync();
         }
 
-        public async Task<List<Model>> GetActiveMarkas()
+        public async Task<double> AllModelPageCount(double take)
         {
             using var context = new Context();
 
-            List<Model> markas = await context.Models.Where(x => !x.IsDeactive && x.IsMain).ToListAsync();
-            return markas;
-        }
-
-        public async Task<List<Model>> GetActiveMarkNames()
-        {
-            using var context = new Context();
-
-            List<Model> markas = await context.Models.Where(x => !x.IsDeactive && x.IsMain).Select(x=>new Model
-            { Id=x.Id, Name=x.Name}).ToListAsync();
-            return markas;
-        }
-
-        public async Task<List<Model>> GetAllMarkas(int take, int page)
-        {
-            using var context = new Context();
-
-            List<Model> markas = await context.Models.Where(x=>x.IsMain).OrderByDescending(x=>x.Id)
-                .Skip((page-1) * take).Take(take).ToListAsync();
-            return markas;
-        }
-
-        public async Task<double> MarkaPageCount(double take)
-        {
-            using var context = new Context();
-
-            double pageCount = Math.Ceiling(await context.Models.Where(x => x.IsMain).CountAsync() / take);
+            double pageCount = Math.Ceiling(await context.Models.Where(x => !x.IsMain).CountAsync() / take);
             return pageCount;
+        }
+
+        public async Task<List<Model>> GetActiveModelsByParentMarkas(int? parentId)
+        {
+            using var context = new Context();
+
+            List<Model> models = await context.Models.Where(x =>!x.IsDeactive && !x.IsMain && x.ParentId == parentId).ToListAsync();
+            return models;
+        }
+
+        public async Task<List<Model>> GetAllModelsByParentMarkas(int? parentId)
+        {
+            using var context = new Context();
+
+            List<Model> models = await context.Models.Where(x => !x.IsMain && x.ParentId==parentId).ToListAsync();
+            return models;
+        }
+
+        public async Task<List<Model>> GetAllModelsWithPaging(int take, int page)
+        {
+            using var context = new Context();
+
+            List<Model> models = await context.Models.Include(x=>x.Parent).Where(x=>!x.IsMain).OrderByDescending(x=>x.Id).
+                Skip((page-1)*take).Take(take).ToListAsync();
+
+            return models;
         }
     }
 }

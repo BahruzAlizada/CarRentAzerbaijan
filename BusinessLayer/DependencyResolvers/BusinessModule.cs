@@ -27,7 +27,10 @@ namespace BusinessLayer.DependencyResolvers
             services.AddScoped<IYearService, YearManager>();
             services.AddScoped<IYearDal, EFYearDal>();
 
-            services.AddScoped<IModelService,ModelManager>();
+            services.AddScoped<IMarkaService,MarkaManager>();
+            services.AddScoped<IMarkaDal, EFMarkaDal>();
+
+            services.AddScoped<IModelService, ModelManager>();
             services.AddScoped<IModelDal, EFModelDal>();
 
             //services.AddScoped<ICompanyService, CompanyManager>();

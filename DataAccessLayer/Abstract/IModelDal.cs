@@ -6,9 +6,9 @@ namespace DataAccessLayer.Abstract
     public interface IModelDal : IRepositoryBase<Model>
     {
         Task Activity(int id);
-        Task<List<Model>> GetAllMarkas(int take,int page);
-        Task<List<Model>> GetActiveMarkas();
-        Task<List<Model>> GetActiveMarkNames();
-        Task<double> MarkaPageCount(double take);
+        Task<List<Model>> GetAllModelsWithPaging(int take, int page);
+        Task<double> AllModelPageCount(double take);
+        Task<List<Model>> GetAllModelsByParentMarkas(int? parentId);
+        Task<List<Model>> GetActiveModelsByParentMarkas(int? parentId);
     }
 }

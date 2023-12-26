@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Abstract;
+﻿
+using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
 using Microsoft.Extensions.Caching.Memory;
@@ -7,72 +8,72 @@ namespace BusinessLayer.Concrete
 {
     public class ModelManager : IModelService
     {
-        private readonly IModelDal markaDal;
+        private readonly IModelDal modelDal;
         private readonly IMemoryCache memoryCache;
-        public ModelManager(IModelDal markaDal,IMemoryCache memoryCache)
+        public ModelManager(IModelDal modelDal,IMemoryCache memoryCache)
         {
-            this.markaDal = markaDal;
-            this.memoryCache= memoryCache;
+            this.modelDal = modelDal;
+            this.memoryCache = memoryCache;
         }
 
         public async Task ActivityAsync(int id)
         {
-            await markaDal.Activity(id);
+            await modelDal.Activity(id);
         }
 
-        public async Task AddAsync(Model marka)
+        public async Task AddAsync(Model model)
         {
-            await markaDal.AddAsync(marka);
+            await modelDal.AddAsync(model);
         }
 
-        public async Task<List<Model>> GetActiveCachingMarkNamesAsync()
+        public async Task<double> AllModelPageCountAsync(double take)
         {
-            const string cachedKey = "markas";
-            List<Model> markas;
+            return await modelDal.AllModelPageCount(take);
+        }
 
-            if(!memoryCache.TryGetValue(cachedKey, out markas))
+        public async Task<List<Model>> GetActiveCachingModelsByParentMarkasAsync(int? parentId)
+        {
+            const string cachedKey = "models";
+            List<Model> models;
+
+            if(!memoryCache.TryGetValue(cachedKey, out models))
             {
-                markas = await markaDal.GetActiveMarkNames();
+                models = await modelDal.GetActiveModelsByParentMarkas(parentId);
 
-                memoryCache.Set(cachedKey, markas, new MemoryCacheEntryOptions
+                memoryCache.Set(cachedKey, models, new MemoryCacheEntryOptions
                 {
-                    SlidingExpiration=TimeSpan.FromMinutes(4),
-                    AbsoluteExpirationRelativeToNow=TimeSpan.FromMinutes(12),
+                    SlidingExpiration = TimeSpan.FromMinutes(3),
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(9),
                     Priority=CacheItemPriority.High
                 });
             }
 
-            return markas;
+            return models;
         }
 
-        public async Task<List<Model>> GetActiveMarkasAsync()
+        public async Task<List<Model>> GetActiveModelsByParentMarkasAsync(int? parentId)
         {
-            return await markaDal.GetActiveMarkas();
+            return await modelDal.GetActiveModelsByParentMarkas(parentId);
         }
 
-        public async Task<List<Model>> GetActiveMarkNamesAsync()
+        public async Task<List<Model>> GetAllModelsByParentMarkasAsync(int? parentId)
         {
-            return await markaDal.GetActiveMarkNames();
+            return await modelDal.GetAllModelsByParentMarkas(parentId);
         }
 
-        public async Task<List<Model>> GetAllMarkasAsync(int take, int page)
+        public Task<List<Model>> GetAllModelsWithPagingAsync(int take, int page)
         {
-            return await markaDal.GetAllMarkas(take, page);
+            return modelDal.GetAllModelsWithPaging(take, page);
         }
 
-        public async Task<Model> GetMarkaByIdAsync(int? id)
+        public async Task<Model> GetModelByIdAsync(int? id)
         {
-            return await markaDal.GetAsync(x => x.Id == id);
+            return await modelDal.GetAsync(x => x.Id == id);
         }
 
-        public async Task<double> MarkaPageCountAsync(double take)
+        public async Task UpdateAsync(Model model)
         {
-            return await markaDal.MarkaPageCount(take);
-        }
-
-        public async Task UpdateAsync(Model marka)
-        {
-            await markaDal.UpdateAsync(marka);
+            await modelDal.UpdateAsync(model);
         }
     }
 }
