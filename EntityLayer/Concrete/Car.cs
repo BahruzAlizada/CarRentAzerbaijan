@@ -1,6 +1,6 @@
 ﻿using CoreLayer.Entity;
 
-
+  
 namespace EntityLayer.Concrete
 {
     public class Car : IEntity
@@ -21,7 +21,6 @@ namespace EntityLayer.Concrete
         public bool IsNotEmpty { get; set; }
         public bool IsDeactive { get; set; }
         public DateTime Created { get; set; } = DateTime.UtcNow.AddHours(4);
-
         public bool IsPremium { get; set; }
         public DateTime PremiumDate { get; set; }
 

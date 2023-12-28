@@ -1,0 +1,46 @@
+﻿@model List<RoleVM>
+
+<hr class="my-5" />
+
+<!-- Bordered Table -->
+<div class="card">
+    <div class="card-header" style="display:flex;justify-content:space-between">
+        <h2>Rollar</h2>
+        <div>
+            <a asp-action="Create" class="btn btn-primary text-white" style="margin-right:10px">Yarat</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Rol adı</th>
+                        <th>Normalized ad</th>
+                        <th style="text-align:right">Aksiyonlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (RoleVM item in Model)
+                    {
+                        <tr>
+                            <td>@item.Role</td>
+                            <td>@item.RoleNormalizied</td>
+                            <td>
+                                <div style="display:flex;justify-content:flex-end">
+                                    <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning  text-white" style="margin-right:10px">Yenilə</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<!--/ Bordered Table -->
+
+<hr class="my-5" />
+
+
