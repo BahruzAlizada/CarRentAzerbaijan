@@ -1,0 +1,30 @@
+﻿
+
+
+<div class="row">
+    <div class="col-8">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+            </div>
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+            <div class="card-body">
+                <form method="post">
+
+                    <div class="mb-3 form-group">
+                       <p>@ViewBag.Name adlı istifadəçini silməyə əminsən ?</p>
+                    </div>
+
+                 
+
+                    <button type="submit" class="btn btn-danger">Sil</button>
+                    <a asp-action="Index" class="btn btn-secondary">Geri qayıt</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
