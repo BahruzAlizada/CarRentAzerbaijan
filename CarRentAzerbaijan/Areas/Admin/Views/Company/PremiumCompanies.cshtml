@@ -1,0 +1,112 @@
+﻿@*﻿@{
+    Layout = "_AdminLayoutTwo";
+}*@
+
+@model List<CompanyDto>
+
+<div style="display:flex;">
+    <a asp-action="Index" class="btn btn-secondary my-2 mx-2">Geri qayıt</a>
+</div>
+
+
+<hr class="my-5" />
+
+<!-- Bordered Table -->
+<div class="card">
+    <div class="card-header" style="display:flex;justify-content:space-between">
+        <p>Şirkət sayı : @ViewBag.CompanyCount</p>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Şəkil Şirkət adı</th>
+                        <th>İstifadəçi adı</th>
+                        <th>Email</th>
+                        <th>Telefon</th>
+                        <th>Maşın sayısı</th>
+                        <th>Premium maşın sayısı</th>
+                        <th>Premium</th>
+                        <th>Status</th>
+                        <th style="text-align:right">Aksiyonlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (CompanyDto item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/images/users/@item.Image" class="w-px-40 h-auto rounded-circle">
+                                @item.Name
+                            </td>
+                            <td>@item.UserName</td>
+                            <td>@item.Email</td>
+                            <td>
+                                @if (item.Phone == null)
+                                {
+                                    <span style="background-color:red;color:white;padding:6px 4px;">Qeyd Edilməyib</span>
+                                }
+                                else
+                                {
+                                    @item.Phone
+                                }
+                            </td>
+                            <td>@item.CarCount maşın</td>
+                            <td>@item.PremiumCarCount maşın</td>
+                            <td>
+                                @if (item.IsPremium)
+                                {
+                                    <span style="padding:6px 4px; background-color:green; color:white;">Premiumdur</span>
+                                }
+                                else
+                                {
+                                    <span style="padding:6px 4px; background-color:red; color:white;">Premuim deyil</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.IsDeactive)
+                                {
+                                    <span style="padding:6px 4px; background-color:red; color:white;">Dekativ</span>
+                                }
+                                else
+                                {
+                                    <span style="padding:6px 4px; background-color:green; color:white;">Aktiv</span>
+                                }
+                            </td>
+                            <td>
+                                <div style="display:flex;justify-content:flex-end">
+                                    <a asp-action="Premium" asp-route-id="@item.Id" class="btn btn-secondary  text-white" style="margin-right:10px">Premium</a>
+                                    <a asp-controller="Vacancy" asp-action="Index" asp-route-userId="@item.Id" class="btn btn-success  text-white" style="margin-right:10px">Maşınlara Bax</a>
+                                    <a asp-action="ResetPassword" asp-route-id="@item.Id" class="btn btn-warning  text-white" style="margin-right:10px">Şifrəni sıfırla</a>
+                                    <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary  text-white" style="margin-right:10px">Yenilə</a>
+                                    <a asp-action="Activity" asp-route-id="@item.Id" class="btn btn-danger text-white" style="margin-right:10px">status</a>
+                                    @*<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-white" style="margin-right:10px">Sil</a>*@
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="pagnation my-2">
+                    <ul style="list-style:none;display:flex;justify-content:center;">
+
+                        @for (int i = 1; i <= ViewBag.PageCount; i++)
+                        {
+                            <li class="page-item  @(i == ViewBag.CurrentPage ? "active" : "")"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--/ Bordered Table -->
+
+<hr class="my-5" />
