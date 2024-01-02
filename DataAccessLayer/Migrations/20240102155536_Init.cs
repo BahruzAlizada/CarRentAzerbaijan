@@ -265,15 +265,13 @@ namespace DataAccessLayer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     BanId = table.Column<int>(type: "int", nullable: false),
-                    ModelId = table.Column<int>(type: "int", nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: false),
                     YearId = table.Column<int>(type: "int", nullable: false),
                     FuelId = table.Column<int>(type: "int", nullable: false),
                     GearBoxId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DailyPrice = table.Column<int>(type: "int", nullable: false),
-                    WeeklyPrice = table.Column<int>(type: "int", nullable: false),
-                    IsNotEmpty = table.Column<bool>(type: "bit", nullable: false),
+                    IsFull = table.Column<bool>(type: "bit", nullable: false),
                     IsDeactive = table.Column<bool>(type: "bit", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsPremium = table.Column<bool>(type: "bit", nullable: false),
@@ -313,12 +311,6 @@ namespace DataAccessLayer.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cars_Models_ModelId",
-                        column: x => x.ModelId,
-                        principalTable: "Models",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Cars_Years_YearId",
                         column: x => x.YearId,
                         principalTable: "Years",
@@ -342,6 +334,32 @@ namespace DataAccessLayer.Migrations
                         name: "FK_CarImages_Cars_CarId",
                         column: x => x.CarId,
                         principalTable: "Cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CarModels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CarId = table.Column<int>(type: "int", nullable: false),
+                    ModelId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarModels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CarModels_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CarModels_Models_ModelId",
+                        column: x => x.ModelId,
+                        principalTable: "Models",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -391,6 +409,16 @@ namespace DataAccessLayer.Migrations
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CarModels_CarId",
+                table: "CarModels",
+                column: "CarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CarModels_ModelId",
+                table: "CarModels",
+                column: "ModelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cars_BanId",
                 table: "Cars",
                 column: "BanId");
@@ -409,11 +437,6 @@ namespace DataAccessLayer.Migrations
                 name: "IX_Cars_GearBoxId",
                 table: "Cars",
                 column: "GearBoxId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cars_ModelId",
-                table: "Cars",
-                column: "ModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_UserId",
@@ -453,10 +476,16 @@ namespace DataAccessLayer.Migrations
                 name: "CarImages");
 
             migrationBuilder.DropTable(
+                name: "CarModels");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Cars");
+
+            migrationBuilder.DropTable(
+                name: "Models");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
@@ -472,9 +501,6 @@ namespace DataAccessLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "GearBoxes");
-
-            migrationBuilder.DropTable(
-                name: "Models");
 
             migrationBuilder.DropTable(
                 name: "Years");

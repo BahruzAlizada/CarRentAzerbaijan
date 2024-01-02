@@ -194,22 +194,16 @@ namespace DataAccessLayer.Migrations
                     b.Property<bool>("IsDeactive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsNotEmpty")
+                    b.Property<bool>("IsFull")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsPremium")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ModelId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PremiumDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WeeklyPrice")
                         .HasColumnType("int");
 
                     b.Property<int>("YearId")
@@ -224,8 +218,6 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("FuelId");
 
                     b.HasIndex("GearBoxId");
-
-                    b.HasIndex("ModelId");
 
                     b.HasIndex("UserId");
 
@@ -254,6 +246,29 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("CarId");
 
                     b.ToTable("CarImages");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.CarModels", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("ModelId");
+
+                    b.ToTable("CarModels");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.City", b =>
@@ -495,12 +510,6 @@ namespace DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EntityLayer.Concrete.Model", "Model")
-                        .WithMany("Cars")
-                        .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("EntityLayer.Concrete.AppUser", "User")
                         .WithMany("Cars")
                         .HasForeignKey("UserId")
@@ -521,8 +530,6 @@ namespace DataAccessLayer.Migrations
 
                     b.Navigation("GearBox");
 
-                    b.Navigation("Model");
-
                     b.Navigation("User");
 
                     b.Navigation("Year");
@@ -537,6 +544,25 @@ namespace DataAccessLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Car");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.CarModels", b =>
+                {
+                    b.HasOne("EntityLayer.Concrete.Car", "Car")
+                        .WithMany("CarModels")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EntityLayer.Concrete.Model", "Model")
+                        .WithMany("CarModels")
+                        .HasForeignKey("ModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("Model");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Model", b =>
@@ -612,6 +638,8 @@ namespace DataAccessLayer.Migrations
             modelBuilder.Entity("EntityLayer.Concrete.Car", b =>
                 {
                     b.Navigation("CarImages");
+
+                    b.Navigation("CarModels");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.City", b =>
@@ -631,7 +659,7 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Concrete.Model", b =>
                 {
-                    b.Navigation("Cars");
+                    b.Navigation("CarModels");
 
                     b.Navigation("Children");
                 });

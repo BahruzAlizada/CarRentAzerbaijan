@@ -152,19 +152,19 @@ namespace CarRentAzerbaijan.Areas.Admin.Controllers
         #endregion
 
         #region Delete
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    return View();
-        //}
+        public async Task<IActionResult> Delete(int id)
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[ActionName("Delete")]
-        //public async Task<IActionResult> DeletePost(int id)
-        //{
-        //    await companyService.DeleteAsync(id);
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            await companyService.DeleteAsync(id);
+            return RedirectToAction("Index");
+        }
         #endregion
     }
 }

@@ -5,7 +5,6 @@ namespace EntityLayer.Concrete
     public class Model : IEntity
     {
         public int Id { get; set; }
-        
         public string Name { get; set; }
         public string? Image { get; set; }
         public bool IsMain { get; set; }
@@ -14,6 +13,6 @@ namespace EntityLayer.Concrete
         public int? ParentId { get; set; }
         public bool IsDeactive { get; set; }
 
-        public List<Car> Cars { get; set; }
+        public List<CarModels> CarModels { get; set; }
     }
 }

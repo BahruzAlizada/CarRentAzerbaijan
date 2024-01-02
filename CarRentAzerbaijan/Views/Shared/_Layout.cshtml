@@ -47,6 +47,15 @@
                         <li><a href="properties.html">Şirkətlər</a></li>
                         <li><a href="services.html">Markalar</a></li>
                         <li><a href="about.html">Şəhərlər</a></li>
+                        <li>
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a asp-area="Company" asp-controller="Cars" asp-action="Index">@User.Identity.Name</a>
+                                <a asp-controller="Account" asp-action="Logout">LogOut</a>
+                            }
+
+                        </li>
                     </ul>
 
                     <a href="#"

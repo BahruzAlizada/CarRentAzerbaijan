@@ -30,7 +30,10 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Company\Data\" />
+    <Folder Include="Areas\Company\Models\" />
     <Folder Include="wwwroot\images\markas\" />
+    <Folder Include="wwwroot\images\cars\" />
     <Folder Include="wwwroot\images\users\" />
   </ItemGroup>
 

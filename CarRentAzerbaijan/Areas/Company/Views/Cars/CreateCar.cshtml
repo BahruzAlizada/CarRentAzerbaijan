@@ -1,0 +1,183 @@
+﻿
+@model Car
+
+<!-- Start post Area -->
+<section class="post-area section-gap my-4">
+    <div class="container">
+        <div class="row justify-content-center d-flex">
+
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <small class="text-muted float-end">Maşın əlavə et</small>
+                    </div>
+
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+
+                            <div class="mb-3">
+                                <label asp-for="Photos" class="form-label">Şəkil</label>
+                                <input asp-for="Photos" accept="image/*" class="form-control" />
+                                <span class="text-danger" asp-validation-for="Photos"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Ban</label>
+                                <select class="form-control" name="banId">
+                                    @foreach (Ban ban in ViewBag.Bans)
+                                    {
+                                        <option value="@ban.Id">@ban.Name</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Şəhər</label>
+                                <select class="form-control" name="cityId">
+                                    @foreach (City city in ViewBag.Cities)
+                                    {
+                                        <option value="@city.Id">@city.Name</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="row g-2 my-2">
+
+                                <div class="col-6 form-group">
+                                    <label>Marka</label>
+                                    <select class="form-control" id="mainId" name="markaId">
+                                        @foreach (Model marka in ViewBag.Markas)
+                                        {
+                                            <option value="@marka.Id">@marka.Name</option>
+                                        }
+                                    </select>
+                                </div>
+
+
+                                <div class="col-6 form-group">
+                                    <label>Model</label>
+                                    <select class="form-control" id="modelId" name="modelId">
+                                        @foreach (Model modell in ViewBag.Models)
+                                        {
+                                            <option value="@modell.Id">@modell.Name</option>
+                                        }
+                                    </select>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row g-2 my-2">
+
+                                <div class="col-4 form-group">
+                                    <label>İl</label>
+                                    <select class="form-control" name="yearId">
+                                        @foreach (Year year in ViewBag.Years)
+                                        {
+                                            <option value="@year.Id">@year.Yearr</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="col-4 form-group">
+                                    <label>Sürətlər qutusu</label>
+                                    <select class="form-control" name="gearBoxId">
+                                        @foreach (GearBox gearBox in ViewBag.GearBoxs)
+                                        {
+                                            <option value="@gearBox.Id">@gearBox.Name</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="col-4 form-group">
+                                    <label>Yanacaq növü</label>
+                                    <select class="form-control" name="fuelId">
+                                        @foreach (Fuel fuel in ViewBag.Fuels)
+                                        {
+                                            <option value="@fuel.Id">@fuel.Name</option>
+                                        }
+                                    </select>
+                                </div>
+
+                            </div>
+
+                         
+
+                            <div class="mb-3">
+                                <label asp-for="DailyPrice" class="form-label">1 günlük qiymət (Bu xana mütləq doldurulmalıdır)</label>
+                                <input asp-for="DailyPrice" class="form-control" />
+                                <span class="text-danger" asp-validation-for="DailyPrice"></span>
+                            </div>
+
+                           
+
+                            <div class="mb-3">
+                                <label asp-for="Description" class="form-label">Maşın haqqında qısaca yazın</label>
+                                <textarea asp-for="Description" id="editor" class="form-control"></textarea>
+                                <span class="text-danger" asp-validation-for="Description"></span>
+                            </div>
+
+
+                            <button type="submit" class="btn btn-success">Yarat</button>
+                            <a asp-action="Index" class="btn btn-secondary">Geri qayıt</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background-color:white;" class="col-md-4 sidebar">
+                <div class="single-slidebar">
+                    <h4>Qaydalar</h4>
+                    <p>
+                        1) Bir vakansiyanın 30 gün müddətinə yerləşdirilməsi pulsuz həyata keçirilir.
+                    </p><br />
+                    <p>2) Vakansiya yalnız Azərbaycan daxilində olan işləri əhatə etməlidir.</p><br />
+                    <p>
+                        3) Vakansiya haqqında elanın ən qısa müddətdə dərc olunması üçün
+                        formanın doldurulmasına dair bütün təlimatlara ciddi riayət olunmalıdır.
+                        Səliqəsiz doldurulmuş formalar redaktəyə məruz qalacaq və dərhal dərc olunmayacaq.<br />
+                        Vakansiyaları yaratdıqdan sonra üzərində hər hansısa bir dəyişiklik və yaxud bu vakansiyanı silmək qadağndır.
+                    </p><br />
+
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End post Area -->
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+
+    <script asp-append-version="true">
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .catch(error => {
+                console.error(error);
+            });
+
+
+            $(document).on("change","#mainId", function () {
+                let mainId = $("#mainId").val()
+                $.ajax({
+                    url: "/Company/Cars/LoadModels/",
+                    type: "get",
+                    data:{
+                        "markaId": mainId
+                    },
+                    success: function (res) {
+                    $("#modelId").empty()
+                    $("#modelId").append(res)
+                    }
+                })
+            })
+
+    </script>
+
+
+}
