@@ -36,6 +36,9 @@ namespace BusinessLayer.DependencyResolvers
             services.AddScoped<ICompanyService, CompanyManager>();
             services.AddScoped<ICompanyDal, EFCompanyDal>();
 
+            services.AddScoped<ICarService, CarManager>();
+            services.AddScoped<ICarDal,EFCarDal>();
+
             //services.AddScoped<IContactService, ContactManager>();
             //services.AddScoped<IContactDal, EFContactDal>();
 

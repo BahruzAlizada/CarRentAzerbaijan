@@ -13,6 +13,6 @@ namespace EntityLayer.Concrete
         public int? ParentId { get; set; }
         public bool IsDeactive { get; set; }
 
-        public List<CarModels> CarModels { get; set; }
+        public List<CarModel> CarModels { get; set; }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240102155536_Init")]
+    [Migration("20240103170448_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -251,7 +251,7 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("CarImages");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.CarModels", b =>
+            modelBuilder.Entity("EntityLayer.Concrete.CarModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -549,7 +549,7 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Car");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.CarModels", b =>
+            modelBuilder.Entity("EntityLayer.Concrete.CarModel", b =>
                 {
                     b.HasOne("EntityLayer.Concrete.Car", "Car")
                         .WithMany("CarModels")

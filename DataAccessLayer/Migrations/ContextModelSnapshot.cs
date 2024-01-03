@@ -248,7 +248,7 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("CarImages");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.CarModels", b =>
+            modelBuilder.Entity("EntityLayer.Concrete.CarModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -546,7 +546,7 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Car");
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.CarModels", b =>
+            modelBuilder.Entity("EntityLayer.Concrete.CarModel", b =>
                 {
                     b.HasOne("EntityLayer.Concrete.Car", "Car")
                         .WithMany("CarModels")

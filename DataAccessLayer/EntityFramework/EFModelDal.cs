@@ -53,6 +53,7 @@ namespace DataAccessLayer.EntityFramework
             List<Model> models = await context.Models.Include(x=>x.Parent).Where(x=>!x.IsMain).OrderByDescending(x=>x.Id).
                 Skip((page-1)*take).Take(take).ToListAsync();
 
+
             return models;
         }
     }

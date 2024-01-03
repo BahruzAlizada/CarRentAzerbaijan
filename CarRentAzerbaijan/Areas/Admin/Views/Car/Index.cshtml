@@ -1,0 +1,146 @@
+﻿@*﻿@{
+    Layout = "_AdminLayoutTwo";
+}*@
+
+@model List<Car>
+
+<div style="display:flex;">
+    <a asp-controller="Dashboard" asp-action="Index" class="btn btn-secondary my-2">Ana Səhifəyə qayıt</a>
+    <a asp-action="PremiumCompanies" class="btn btn-success mx-2 my-2">Premium Maşınlar</a>
+</div>
+
+
+<hr class="my-5" />
+
+<!-- Bordered Table -->
+<div class="card">
+    <div class="card-header" style="display:flex;justify-content:space-between">
+        <p>Maşın sayı : @ViewBag.CarsCount</p>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Kim Tərəfindən</th>
+                        <th>Şəkil</th>
+                        <th>Ban</th>
+                        <th>Marka</th>
+                        <th>Model</th>
+                        <th>İl</th>
+                        <th>Qiymət</th>
+                        <th>Şəhər</th>
+                        <th>Sürət qutusu</th>
+                        <th>Yanacaq</th>
+                        <th>Yerləşdirilmə tarixi</th>
+                        <th>Premium</th>
+                        <th>Premium tarixi</th>
+                        <th>Doludur</th>
+                        <th>Status</th>
+                        <th style="text-align:right">Aksiyonlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Car item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/images/users/@item.User.Image" class="w-px-40 h-auto rounded-circle">
+                                  @item.User.Name
+                            </td>
+                            <td>
+                                <img src="~/images/cars/@item.CarImages[0].Image" style="object-fit:cover;height:80px;width:160px;">
+                            </td>
+                            <td>@item.Ban.Name</td>
+                            <td>
+                                @foreach(var marka in item.CarModels)
+                                {
+                                    @if (marka.Model.IsMain)
+                                    {
+                                        <span>@marka.Model.Name</span>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @foreach (var marka in item.CarModels)
+                                {
+                                    @if (!marka.Model.IsMain)
+                                    {
+                                        <span>@marka.Model.Name</span>
+                                    }
+                                }
+                            </td>
+                            <td>@item.Year.Yearr</td>
+                            <td>@item.DailyPrice Azn</td>
+                            <td>@item.City.Name</td>
+                            <td>@item.GearBox.Name</td>
+                            <td>@item.Fuel.Name</td>
+                            <td>@item.Created</td>
+                            
+                            <td>
+                                @if (item.IsPremium)
+                                {
+                                    <span style="background-color:green;color:white;padding:6px 4px;">Premium</span>
+                                }
+                                else
+                                {
+                                    <span style="background-color:red;color:white;padding:6px 4px;">Premium deyil</span>
+                                }
+                            </td>
+                            <td>@item.PremiumDate</td>
+                            <td>
+                                @if (item.IsFull)
+                                {
+                                    <span style="padding:6px 4px; background-color:green; color:white;">Doludur</span>
+                                }
+                                else
+                                {
+                                    <span style="padding:6px 4px; background-color:red; color:white;">Dolu deyil</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.IsDeactive)
+                                {
+                                    <span style="padding:6px 4px; background-color:red; color:white;">Dekativ</span>
+                                }
+                                else
+                                {
+                                    <span style="padding:6px 4px; background-color:green; color:white;">Aktiv</span>
+                                }
+                            </td>
+                            <td>
+                                <div style="display:flex;justify-content:flex-end">
+                                    <a asp-action="Premium" asp-route-id="@item.Id" class="btn btn-secondary  text-white" style="margin-right:10px">Premium</a>
+                                    <a asp-controller="Vacancy" asp-action="Index" asp-route-userId="@item.Id" class="btn btn-success  text-white" style="margin-right:10px">Maşınlara Bax</a>
+                                    <a asp-action="ResetPassword" asp-route-id="@item.Id" class="btn btn-warning  text-white" style="margin-right:10px">Şifrəni sıfırla</a>
+                                    <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary  text-white" style="margin-right:10px">Yenilə</a>
+                                    <a asp-action="Activity" asp-route-id="@item.Id" class="btn btn-danger text-white" style="margin-right:10px">status</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-white" style="margin-right:10px">Sil</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="pagnation my-2">
+                    <ul style="list-style:none;display:flex;justify-content:center;">
+
+                        @for (int i = 1; i <= ViewBag.PageCount; i++)
+                        {
+                            <li class="page-item  @(i == ViewBag.CurrentPage ? "active" : "")"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--/ Bordered Table -->
+
+<hr class="my-5" />

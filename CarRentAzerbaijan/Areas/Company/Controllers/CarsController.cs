@@ -97,7 +97,7 @@ namespace CarRentAzerbaijan.Areas.Company.Controllers
             if (car.Photos.Count > 5)
             {
                 ModelState.AddModelError("", "Maksimum 5 şəkil yükləməyə icazə verilir.");
-                return View();   
+                return View();
             }
 
             foreach (IFormFile photo in car.Photos)
@@ -129,17 +129,19 @@ namespace CarRentAzerbaijan.Areas.Company.Controllers
             #endregion
 
             #region MarkaandModels
-            List<CarModels> carModels = new List<CarModels>();
+            List<CarModel> carModels = new List<CarModel>();
 
-            CarModels CarMarka = new CarModels();
+            CarModel CarMarka = new CarModel();
             CarMarka.ModelId = markaId;
 
             carModels.Add(CarMarka);
 
-            CarModels modelCar = new CarModels();
+            CarModel modelCar = new CarModel();
             modelCar.ModelId = modelId;
 
             carModels.Add(modelCar);
+
+            car.CarModels = carModels;
             #endregion
 
             car.UserId = user.Id;

@@ -31,26 +31,6 @@ namespace BusinessLayer.Concrete
             return await modelDal.AllModelPageCount(take);
         }
 
-        public async Task<List<Model>> GetActiveCachingModelsByParentMarkasAsync(int? parentId)
-        {
-            const string cachedKey = "models";
-            List<Model> models;
-
-            if(!memoryCache.TryGetValue(cachedKey, out models))
-            {
-                models = await modelDal.GetActiveModelsByParentMarkas(parentId);
-
-                memoryCache.Set(cachedKey, models, new MemoryCacheEntryOptions
-                {
-                    SlidingExpiration = TimeSpan.FromMinutes(3),
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(9),
-                    Priority=CacheItemPriority.High
-                });
-            }
-
-            return models;
-        }
-
         public async Task<List<Model>> GetActiveModelsByParentMarkasAsync(int? parentId)
         {
             return await modelDal.GetActiveModelsByParentMarkas(parentId);

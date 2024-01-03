@@ -28,8 +28,9 @@ namespace EntityLayer.Concrete
 
         [NotMapped]
         public List<IFormFile> Photos { get; set; }
-        public List<CarModels> CarModels { get; set; }
+        
         public List<CarImage> CarImages { get;set; }
+        public List<CarModel> CarModels { get; set; }
         public AppUser User { get; set;}
         public Ban Ban { get; set; }
         public City City { get; set; }
