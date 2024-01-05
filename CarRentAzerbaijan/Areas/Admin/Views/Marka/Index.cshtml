@@ -5,7 +5,7 @@
 <!-- Bordered Table -->
 <div class="card">
     <div class="card-header" style="display:flex;justify-content:space-between">
-        <h2>Markalar</h2>
+        <p>Markalar</p>
         <div>
             <a asp-action="Create" class="btn btn-primary text-white" style="margin-right:10px">Yarat</a>
         </div>
@@ -41,6 +41,7 @@
                             </td>
                             <td>
                                 <div style="display:flex;justify-content:flex-end">
+                                    <a asp-controller="Cars" asp-action="Index" asp-route-id="@item.Id" class="btn btn-success text-white" style="margin-right:10px">Maşınlara bax</a>
                                     <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning text-white" style="margin-right:10px">Yenilə</a>
                                     <a asp-action="Activity" asp-route-id="@item.Id" class="btn btn-danger text-white" style="margin-right:10px">status</a>
                                 </div>

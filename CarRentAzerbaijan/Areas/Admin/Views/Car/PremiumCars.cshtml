@@ -5,8 +5,8 @@
 @model List<Car>
 
 <div style="display:flex;">
-    <a asp-controller="Dashboard" asp-action="Index" class="btn btn-secondary my-2">Ana Səhifəyə qayıt</a>
-    <a asp-action="PremiumCars" class="btn btn-success mx-2 my-2">Premium Maşınlar</a>
+    <a asp-action="Index" class="btn btn-secondary my-2">Geri qayıt</a>
+    <a asp-action="PremiumCompanies" class="btn btn-danger mx-2 my-2">Vaxtı Keçmişlərdən premium nişanını götür</a>
 </div>
 
 
@@ -45,14 +45,14 @@
                         <tr>
                             <td>
                                 <img src="~/images/users/@item.User.Image" class="w-px-40 h-auto rounded-circle">
-                                  @item.User.Name
+                                @item.User.Name
                             </td>
                             <td>
                                 <img src="~/images/cars/@item.CarImages[0].Image" style="object-fit:cover;height:80px;width:160px;">
                             </td>
                             <td>@item.Ban.Name</td>
                             <td>
-                                @foreach(var marka in item.CarModels)
+                                @foreach (var marka in item.CarModels)
                                 {
                                     @if (marka.Model.IsMain)
                                     {
@@ -75,7 +75,7 @@
                             <td>@item.GearBox.Name</td>
                             <td>@item.Fuel.Name</td>
                             <td>@item.Created</td>
-                            
+
                             <td>
                                 @if (item.IsPremium)
                                 {
@@ -109,14 +109,6 @@
                             </td>
                             <td>
                                 <div style="display:flex;justify-content:flex-end">
-                                    @if (item.IsPremium)
-                                    {
-                                        
-                                    }
-                                    else
-                                    {
-                                        <a asp-action="DoPremium" asp-route-id="@item.Id" class="btn btn-secondary text-white" style="margin-right:10px">Premium</a>
-                                    }
                                     <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary  text-white" style="margin-right:10px">Yenilə</a>
                                     <a asp-action="Activity" asp-route-id="@item.Id" class="btn btn-danger text-white" style="margin-right:10px">status</a>
                                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-white" style="margin-right:10px">Sil</a>
