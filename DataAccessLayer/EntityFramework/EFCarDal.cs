@@ -65,8 +65,7 @@ namespace DataAccessLayer.EntityFramework
             List<Car> cars = await context.Cars.
                 Include(x => x.Ban).Include(x => x.City).
                 Include(x => x.Year).Include(x => x.Fuel).
-                Include(x => x.GearBox).Include(x => x.CarImages).
-                Include(x => x.User).
+                Include(x => x.GearBox).Include(x => x.User).
                 Include(x => x.CarModels).ThenInclude(x => x.Model).
                 Where(x =>
                 (filter.CompanyId == null || x.UserId == filter.CompanyId) &&
@@ -87,8 +86,7 @@ namespace DataAccessLayer.EntityFramework
             List<Car> cars = await context.Cars.
                 Include(x => x.Ban).Include(x => x.City).
                 Include(x => x.Year).Include(x => x.Fuel).
-                Include(x => x.GearBox).Include(x => x.CarImages).
-                Include(x => x.User).
+                Include(x => x.GearBox).Include(x => x.User).
                 Include(x => x.CarModels).ThenInclude(x => x.Model).
                 Where(x=>x.IsPremium).OrderByDescending(x => x.IsPremium).
                 Skip((page - 1) * take).Take(take).ToListAsync();
@@ -103,6 +101,19 @@ namespace DataAccessLayer.EntityFramework
             return PageCount;
 
 
+        }
+
+        public async Task<Car> GetCarById(int? id)
+        {
+            using var context = new Context();
+
+            Car? car = await context.Cars.
+               Include(x => x.Ban).Include(x => x.City).
+               Include(x => x.Year).Include(x => x.Fuel).
+               Include(x => x.GearBox).Include(x => x.User).
+               Include(x => x.CarModels).ThenInclude(x => x.Model).FirstOrDefaultAsync(x => x.Id == id);
+
+            return car;
         }
     }
 }

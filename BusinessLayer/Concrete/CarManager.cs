@@ -45,6 +45,11 @@ namespace BusinessLayer.Concrete
             return await carDal.GetAllCarsWithPaging(take, page, filter);
         }
 
+        public async Task<Car> GetCarByIdAsync(int? id)
+        {
+            return await carDal.GetCarById(id);
+        }
+
         public async Task<Car> GetNoIncludeCarAsync(int? id)
         {
             return await carDal.GetAsync(x => x.Id == id);

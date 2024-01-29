@@ -1,0 +1,17 @@
+﻿@model Contact
+
+<div class="container">
+	<div class="row">
+		<div class="col-10">
+			<h6>Email : @Model.Email</h6>
+			<h6>
+				Mətnin Başlığı : @Model.Subject<br />
+			</h6>
+			<p>Göndərilmə tarixi : @Model.Created.ToShortDateString()</p>
+			<p>@Html.Raw(Model.Message)</p>
+
+			<a asp-action="Index" class="btn btn-secondary">Geri qayıt</a>
+			<a asp-action="Answer" asp-route-id="@Model.Id" class="btn btn-primary">Cavab yaz</a>
+		</div>
+	</div>
+</div>

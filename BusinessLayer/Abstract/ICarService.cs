@@ -13,6 +13,7 @@ namespace BusinessLayer.Abstract
         Task<double> AllCarsPagingCountAsync(double take);
         Task<int> AllCarsCountAsync();
 
+        Task<Car> GetCarByIdAsync(int? id);
 
         Task<List<Car>> GetPremiumCarsWithPagingAsync(int take, int page);
         Task<double> PremiumCarsPagingCountAsync(double take);

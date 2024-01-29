@@ -1,7 +1,6 @@
 ﻿using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace DataAccessLayer.Concrete
 {
@@ -21,6 +20,8 @@ namespace DataAccessLayer.Concrete
         public DbSet<Fuel> Fuels { get; set; }
         public DbSet<GearBox> GearBoxes { get; set; }
         public DbSet<Car> Cars { get; set; }
-        public DbSet<CarImage> CarImages { get; set; }
+        public DbSet<FaqCategory> FaqCategories { get; set; }
+        public DbSet<FAQ> FAQs { get; set; }   
+        public DbSet<Contact> Contacts { get; set; }
     }
 }

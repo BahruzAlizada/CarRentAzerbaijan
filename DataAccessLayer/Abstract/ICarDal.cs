@@ -9,6 +9,9 @@ namespace DataAccessLayer.Abstract
         Task Activity(int id);
         Task DoPremium(int? id, DateTime time);
         Task RemovePremium(int? id);
+
+        Task<Car> GetCarById(int? id);
+
         Task<List<Car>> GetAllCarsWithPaging(int take,int page,FilterDto filter );
         Task<double> AllCarsPagingCount(double take);
 

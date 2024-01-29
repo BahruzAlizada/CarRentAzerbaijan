@@ -92,40 +92,23 @@ namespace CarRentAzerbaijan.Areas.Company.Controllers
 
 
             #region Image
-            List<CarImage> carImages = new List<CarImage>();
-
-            if (car.Photos.Count > 5)
+            if (car.Photo == null)
             {
-                ModelState.AddModelError("", "Maksimum 5 şəkil yükləməyə icazə verilir.");
+                ModelState.AddModelError("Photo", "bu xana boş ola bilməz");
                 return View();
             }
-
-            foreach (IFormFile photo in car.Photos)
+            if (!car.Photo.IsImage())
             {
-                if (photo == null)
-                {
-                    ModelState.AddModelError("photo", "bu xana boş ola bilməz");
-                    return View();
-                }
-                if (!photo.IsImage())
-                {
-                    ModelState.AddModelError("photo", "Yalnız şəkil tipli fayllar");
-                    return View();
-                }
-                if (photo.IsOlder256Kb())
-                {
-                    ModelState.AddModelError("photo", "Maksimum 256Kb olmalıdır.");
-                    return View();
-                }
-                string folder = Path.Combine(env.WebRootPath, "images", "cars");
-
-                CarImage carImage = new CarImage
-                {
-                    Image = await photo.SaveFileAsync(folder)
-                };
-                carImages.Add(carImage);
+                ModelState.AddModelError("Photo", "Yalnız şəkil tipli fayllar");
+                return View();
             }
-            car.CarImages = carImages;
+            if (car.Photo.IsOlder256Kb())
+            {
+                ModelState.AddModelError("Photo", "Maksimum 256Kb olmalıdır.");
+                return View();
+            }
+            string folder = Path.Combine(env.WebRootPath, "images", "cars");
+            car.Image = await car.Photo.SaveFileAsync(folder);
             #endregion
 
             #region MarkaandModels

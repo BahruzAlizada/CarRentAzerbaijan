@@ -15,21 +15,21 @@ namespace EntityLayer.Concrete
         public int FuelId { get; set; }
         public int GearBoxId { get; set; }
 
-        
+
+        public string Image { get; set; }
         public string? Description { get; set; }
         [Required(ErrorMessage ="Bu xana boş qala bilməz")]
         public int DailyPrice { get; set; }
         public bool IsFull { get; set; }
         public bool IsDeactive { get; set; }
-        public DateTime Created { get; set; } = DateTime.UtcNow.AddHours(4);
         public bool IsPremium { get; set; }
-        public DateTime PremiumDate { get; set; }
+        public DateTime Created { get; set; } = DateTime.UtcNow.AddHours(4);
+        public DateTime? PremiumDate { get; set; }
 
 
         [NotMapped]
-        public List<IFormFile> Photos { get; set; }
+        public IFormFile Photo { get; set; }
         
-        public List<CarImage> CarImages { get;set; }
         public List<CarModel> CarModels { get; set; }
         public AppUser User { get; set;}
         public Ban Ban { get; set; }

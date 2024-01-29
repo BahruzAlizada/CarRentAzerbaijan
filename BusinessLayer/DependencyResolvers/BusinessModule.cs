@@ -39,8 +39,14 @@ namespace BusinessLayer.DependencyResolvers
             services.AddScoped<ICarService, CarManager>();
             services.AddScoped<ICarDal,EFCarDal>();
 
-            //services.AddScoped<IContactService, ContactManager>();
-            //services.AddScoped<IContactDal, EFContactDal>();
+            services.AddScoped<IFaqCategoryService, FaqCategoryManager>();
+            services.AddScoped<IFaqCategoryDal, EFFaqCategoryDal>();
+
+            services.AddScoped<IFaqService, FaqManager>();
+            services.AddScoped<IFaqDal, EFFaqDal>();
+
+            services.AddScoped<IContactService, ContactManager>();
+            services.AddScoped<IContactDal, EFContactDal>();
 
             //services.AddScoped<IBannerService, BannerManager>();
             //services.AddScoped<IBannerDal, EFBannerDal>();
@@ -54,8 +60,7 @@ namespace BusinessLayer.DependencyResolvers
             //services.AddScoped<ISocialMediaService, SocialMediaManager>();
             //services.AddScoped<ISocialMediaDal,EFSocialMediaDal>();
 
-            //services.AddScoped<IFaqService, FaqManager>();
-            //services.AddScoped<IFaqDal, EFFaqDal>();
+
         }
     }
 }
