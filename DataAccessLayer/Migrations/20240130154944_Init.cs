@@ -88,6 +88,36 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FaqCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeactive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FaqCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Fuels",
                 columns: table => new
                 {
@@ -135,6 +165,21 @@ namespace DataAccessLayer.Migrations
                         column: x => x.ParentId,
                         principalTable: "Models",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SocialMedias",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Icon = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeactive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SocialMedias", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,6 +303,28 @@ namespace DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FAQs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FaqCategoryId = table.Column<int>(type: "int", nullable: false),
+                    Quetsion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeactive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FAQs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FAQs_FaqCategories_FaqCategoryId",
+                        column: x => x.FaqCategoryId,
+                        principalTable: "FaqCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cars",
                 columns: table => new
                 {
@@ -269,13 +336,15 @@ namespace DataAccessLayer.Migrations
                     YearId = table.Column<int>(type: "int", nullable: false),
                     FuelId = table.Column<int>(type: "int", nullable: false),
                     GearBoxId = table.Column<int>(type: "int", nullable: false),
+                    OutsideImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InsideImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DailyPrice = table.Column<int>(type: "int", nullable: false),
                     IsFull = table.Column<bool>(type: "bit", nullable: false),
                     IsDeactive = table.Column<bool>(type: "bit", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsPremium = table.Column<bool>(type: "bit", nullable: false),
-                    PremiumDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PremiumDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -314,26 +383,6 @@ namespace DataAccessLayer.Migrations
                         name: "FK_Cars_Years_YearId",
                         column: x => x.YearId,
                         principalTable: "Years",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CarImages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CarId = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarImages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CarImages_Cars_CarId",
-                        column: x => x.CarId,
-                        principalTable: "Cars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -404,11 +453,6 @@ namespace DataAccessLayer.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarImages_CarId",
-                table: "CarImages",
-                column: "CarId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CarModels_CarId",
                 table: "CarModels",
                 column: "CarId");
@@ -449,6 +493,11 @@ namespace DataAccessLayer.Migrations
                 column: "YearId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FAQs_FaqCategoryId",
+                table: "FAQs",
+                column: "FaqCategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Models_ParentId",
                 table: "Models",
                 column: "ParentId");
@@ -473,10 +522,16 @@ namespace DataAccessLayer.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CarImages");
+                name: "CarModels");
 
             migrationBuilder.DropTable(
-                name: "CarModels");
+                name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "FAQs");
+
+            migrationBuilder.DropTable(
+                name: "SocialMedias");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -486,6 +541,9 @@ namespace DataAccessLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Models");
+
+            migrationBuilder.DropTable(
+                name: "FaqCategories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

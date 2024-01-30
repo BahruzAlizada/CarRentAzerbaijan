@@ -18,9 +18,15 @@
                         <form method="post" enctype="multipart/form-data">
 
                             <div class="mb-3">
-                                <label asp-for="Photo" class="form-label">Şəkil</label>
-                                <input asp-for="Photo" accept="image/*" class="form-control" />
-                                <span class="text-danger" asp-validation-for="Photo"></span>
+                                <label asp-for="OutsidePhoto" class="form-label">Çöldən Şəkil</label>
+                                <input asp-for="OutsidePhoto" accept="image/*" class="form-control" />
+                                <span class="text-danger" asp-validation-for="OutsidePhoto"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="InsidePhoto" class="form-label">İçdən Şəkil</label>
+                                <input asp-for="InsidePhoto" accept="image/*" class="form-control" />
+                                <span class="text-danger" asp-validation-for="InsidePhoto"></span>
                             </div>
                             
                             <div class="form-group">

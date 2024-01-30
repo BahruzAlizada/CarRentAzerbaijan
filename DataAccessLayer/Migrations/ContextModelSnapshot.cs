@@ -191,7 +191,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("GearBoxId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("InsideImage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -203,6 +203,10 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<bool>("IsPremium")
                         .HasColumnType("bit");
+
+                    b.Property<string>("OutsideImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("PremiumDate")
                         .HasColumnType("datetime2");
@@ -419,6 +423,30 @@ namespace DataAccessLayer.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("Models");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.SocialMedia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SocialMedias");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Year", b =>

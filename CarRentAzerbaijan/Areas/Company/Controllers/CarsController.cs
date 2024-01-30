@@ -91,24 +91,44 @@ namespace CarRentAzerbaijan.Areas.Company.Controllers
             #endregion
 
 
-            #region Image
-            if (car.Photo == null)
+            #region OutsideImage
+            if (car.OutsidePhoto == null)
             {
                 ModelState.AddModelError("Photo", "bu xana boş ola bilməz");
                 return View();
             }
-            if (!car.Photo.IsImage())
+            if (!car.OutsidePhoto.IsImage())
             {
                 ModelState.AddModelError("Photo", "Yalnız şəkil tipli fayllar");
                 return View();
             }
-            if (car.Photo.IsOlder256Kb())
+            if (car.OutsidePhoto.IsOlder256Kb())
             {
                 ModelState.AddModelError("Photo", "Maksimum 256Kb olmalıdır.");
                 return View();
             }
-            string folder = Path.Combine(env.WebRootPath, "images", "cars");
-            car.Image = await car.Photo.SaveFileAsync(folder);
+            string folderOutside = Path.Combine(env.WebRootPath, "images", "cars");
+            car.OutsideImage = await car.OutsidePhoto.SaveFileAsync(folderOutside);
+            #endregion
+
+            #region InsideImage
+            if (car.InsidePhoto == null)
+            {
+                ModelState.AddModelError("Photo", "bu xana boş ola bilməz");
+                return View();
+            }
+            if (!car.InsidePhoto.IsImage())
+            {
+                ModelState.AddModelError("Photo", "Yalnız şəkil tipli fayllar");
+                return View();
+            }
+            if (car.InsidePhoto.IsOlder256Kb())
+            {
+                ModelState.AddModelError("Photo", "Maksimum 256Kb olmalıdır.");
+                return View();
+            }
+            string folderInside = Path.Combine(env.WebRootPath, "images", "cars");
+            car.InsideImage = await car.InsidePhoto.SaveFileAsync(folderInside);
             #endregion
 
             #region MarkaandModels

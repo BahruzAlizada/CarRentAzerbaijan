@@ -16,7 +16,8 @@ namespace EntityLayer.Concrete
         public int GearBoxId { get; set; }
 
 
-        public string Image { get; set; }
+        public string OutsideImage { get; set; }
+        public string InsideImage { get; set; }
         public string? Description { get; set; }
         [Required(ErrorMessage ="Bu xana boş qala bilməz")]
         public int DailyPrice { get; set; }
@@ -28,8 +29,10 @@ namespace EntityLayer.Concrete
 
 
         [NotMapped]
-        public IFormFile Photo { get; set; }
-        
+        public IFormFile OutsidePhoto { get; set; }
+        [NotMapped]
+        public IFormFile InsidePhoto { get; set; }
+
         public List<CarModel> CarModels { get; set; }
         public AppUser User { get; set;}
         public Ban Ban { get; set; }

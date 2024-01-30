@@ -1,1 +1,21 @@
-﻿<h2>Salam</h2>
+﻿@model StatsModel
+
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-3">
+			<div class="dgd" style="border:1px solid white; background-color:black;">
+				<h4 style="color:white;">İstifadəçi sayı - @Model.CompanyCount</h4>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<h4>@Model.MarkaCount </h4>
+		</div>
+
+		<div class="col-md-3">
+			<h4>@Model.ModelCount </h4>
+		</div>
+
+	</div>
+</div>

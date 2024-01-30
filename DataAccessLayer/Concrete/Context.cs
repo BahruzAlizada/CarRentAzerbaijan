@@ -8,7 +8,7 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-OK3QKVJ;Database=CarRenntAzerbaijan;Trusted_Connection=SSPI;Encrypt=false;TrustServerCertificate=true;Integrated Security=True;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-OK3QKVJ;Database=CarRentAzerbaijan;Trusted_Connection=SSPI;Encrypt=false;TrustServerCertificate=true;Integrated Security=True;");
         }
 
 
@@ -23,5 +23,6 @@ namespace DataAccessLayer.Concrete
         public DbSet<FaqCategory> FaqCategories { get; set; }
         public DbSet<FAQ> FAQs { get; set; }   
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<SocialMedia> SocialMedias { get; set; }
     }
 }
