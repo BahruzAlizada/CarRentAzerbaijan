@@ -18,5 +18,7 @@ namespace DataAccessLayer.Abstract
 
         Task<List<Car>> GetPremiumCarsWithPaging(int take, int page);
         Task<double> PremiumCarsPagingCount(double take);
+
+        Task<List<Car>> ActiveCarsAsync();
     }
 }

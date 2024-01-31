@@ -1,0 +1,172 @@
+﻿﻿@{
+    Layout = "_AdminLayoutTwo";
+}
+
+@model Car
+
+<div class="container py-4">
+	<div class="row">
+		<div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <small class="text-muted float-end">Yenilə</small>
+                </div>
+
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+
+                        <div class="mb-3">
+                            <label asp-for="OutsidePhoto" class="form-label">Çöldən Şəkil</label>
+                            <input asp-for="OutsidePhoto" accept="image/*" class="form-control" />
+                            <span class="text-danger" asp-validation-for="OutsidePhoto"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="InsidePhoto" class="form-label">İçdən Şəkil</label>
+                            <input asp-for="InsidePhoto" accept="image/*" class="form-control" />
+                            <span class="text-danger" asp-validation-for="InsidePhoto"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ban</label>
+                            <select class="form-control" name="banId">
+                                @foreach (Ban ban in ViewBag.Bans)
+                                {
+                                    if (ban.Id == Model.BanId)
+                                    {
+                                        <option selected value="@ban.Id">@ban.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@ban.Id">@ban.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Şəhər</label>
+                            <select class="form-control" name="cityId">
+                                @foreach (City city in ViewBag.Cities)
+                                {
+                                    if (city.Id == Model.CityId)
+                                    {
+                                        <option selected value="@city.Id">@city.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@city.Id">@city.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="row g-2 my-2">
+
+                            <div class="col-6 form-group">
+                                <label>Marka</label>
+                                <select class="form-control" id="mainId" name="markaId">
+                                    @foreach (Model marka in ViewBag.Markas)
+                                    {
+                                        <option value="@marka.Id">@marka.Name</option>
+                                    }
+                                </select>
+                            </div>
+
+
+                            <div class="col-6 form-group">
+                                <label>Model</label>
+                                <select class="form-control" id="modelId" name="modelId">
+                                    @foreach (Model modell in ViewBag.Models)
+                                    {
+                                        <option value="@modell.Id">@modell.Name</option>
+                                    }
+                                </select>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row g-2 my-2">
+
+                            <div class="col-4 form-group">
+                                <label>İl</label>
+                                <select class="form-control" name="yearId">
+                                    @foreach (Year year in ViewBag.Years)
+                                    {
+                                        if (year.Id == Model.YearId)
+                                        {
+                                            <option selected value="@year.Id">@year.Yearr</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@year.Id">@year.Yearr</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-4 form-group">
+                                <label>Sürətlər qutusu</label>
+                                <select class="form-control" name="gearBoxId">
+                                    @foreach (GearBox gearBox in ViewBag.GearBoxs)
+                                    {
+                                        if (gearBox.Id == Model.GearBoxId)
+                                        {
+                                            <option selected value="@gearBox.Id">@gearBox.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@gearBox.Id">@gearBox.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="col-4 form-group">
+                                <label>Yanacaq növü</label>
+                                <select class="form-control" name="fuelId">
+                                    @foreach (Fuel fuel in ViewBag.Fuels)
+                                    {
+                                        if (fuel.Id == Model.FuelId)
+                                        {
+                                            <option selected value="@fuel.Id">@fuel.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@fuel.Id">@fuel.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <label asp-for="DailyPrice" class="form-label">1 günlük qiymət (Bu xana mütləq doldurulmalıdır)</label>
+                            <input asp-for="DailyPrice" class="form-control" />
+                            <span class="text-danger" asp-validation-for="DailyPrice"></span>
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Maşın haqqında qısaca yazın</label>
+                            <textarea asp-for="Description" id="editor" class="form-control"></textarea>
+                            <span class="text-danger" asp-validation-for="Description"></span>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-success">Yenilə</button>
+                        <a asp-action="Index" class="btn btn-secondary">Geri qayıt</a>
+                    </form>
+                </div>
+            </div>
+
+		</div>
+	</div>
+</div>

@@ -13,6 +13,10 @@ namespace BusinessLayer.Concrete
             this.carDal = carDal;
         }
 
+        public Task<List<Car>> ActiveCarsAsync()
+        {
+            return carDal.ActiveCarsAsync();
+        }
 
         public async Task ActivityAsync(int id)
         {

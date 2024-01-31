@@ -115,5 +115,18 @@ namespace DataAccessLayer.EntityFramework
 
             return car;
         }
+
+        public async Task<List<Car>> ActiveCarsAsync()
+        {
+            using var context = new Context();
+
+            List<Car> cars = await context.Cars.
+               Include(x => x.Ban).Include(x => x.City).
+               Include(x => x.Year).Include(x => x.Fuel).
+               Include(x => x.GearBox).Include(x => x.User).
+               Include(x => x.CarModels).ThenInclude(x => x.Model).ToListAsync();
+
+            return cars;
+        }
     }
 }

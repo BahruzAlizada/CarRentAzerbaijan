@@ -51,15 +51,15 @@ namespace BusinessLayer.DependencyResolvers
 			services.AddScoped<ISocialMediaService, SocialMediaManager>();
 			services.AddScoped<ISocialMediaDal,EFSocialMediaDal>();
 
-			//services.AddScoped<IBannerService, BannerManager>();
-			//services.AddScoped<IBannerDal, EFBannerDal>();
+            services.AddScoped<IAboutService, AboutManager>();
+            services.AddScoped<IAboutDal, EFAboutDal>();
 
-			//services.AddScoped<IAboutService, AboutManager>();
-			//services.AddScoped<IAboutDal, EFAboutDal>();
+            //services.AddScoped<IBannerService, BannerManager>();
+            //services.AddScoped<IBannerDal, EFBannerDal>();
 
-			//services.AddScoped<IService, ServiceManager>();
-			//services.AddScoped<IServiceDal, EFServiceDal>();
+            //services.AddScoped<IService, ServiceManager>();
+            //services.AddScoped<IServiceDal, EFServiceDal>();
 
-		}
-	}
+        }
+    }
 }

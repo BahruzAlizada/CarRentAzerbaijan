@@ -5,6 +5,9 @@ namespace BusinessLayer.Abstract
 {
     public interface ICarService
     {
+        Task<List<Car>> ActiveCarsAsync();
+
+
         Task ActivityAsync(int id);
         Task DoPremiumAsync(int? id, DateTime time);
         Task RemovePremiumAsync(int? id);

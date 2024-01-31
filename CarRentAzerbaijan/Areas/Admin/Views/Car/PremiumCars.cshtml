@@ -23,7 +23,8 @@
                 <thead>
                     <tr>
                         <th>Kim Tərəfindən</th>
-                        <th>Şəkil</th>
+                        <th>Çöldən Şəkil</th>
+                        <th>İçdən Şəkil</th>
                         <th>Ban</th>
                         <th>Marka</th>
                         <th>Model</th>
@@ -47,9 +48,8 @@
                                 <img src="~/images/users/@item.User.Image" class="w-px-40 h-auto rounded-circle">
                                 @item.User.Name
                             </td>
-                            <td>
-                                <img src="~/images/cars/@item.OutsideImage" style="object-fit:cover;height:80px;width:160px;">
-                            </td>
+                            <td><img src="~/images/cars/@item.OutsideImage" style="object-fit:cover;height:80px;width:160px;"></td>
+                            <td><img src="~/images/cars/@item.InsideImage" style="object-fit:cover;height:80px;width:160px;"></td>
                             <td>@item.Ban.Name</td>
                             <td>
                                 @foreach (var marka in item.CarModels)
